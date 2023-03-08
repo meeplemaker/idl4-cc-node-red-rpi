@@ -89,7 +89,15 @@
 		}
 	]
 
-## Digital switch
+### Blinking LED
+
+#### Circuit
+
+![Blinking LED (circuit)](img/firstCircuit_circuit.png)
+
+#### Flow
+
+![Blinking LED (flow)](img/blinkingLED_flow.png)
 
 	[
 		{
@@ -160,8 +168,16 @@
 		}
 	]
 	
-## Physical switch
+### Switch
 
+#### Circuit
+
+![Switch (circuit)](img/swich_circuit.png)
+
+#### Flow
+
+![Switch (flow)](img/switch_flow.png)
+	
 	[
 		{
 			"id": "244cd0a2c293fd68",
@@ -220,7 +236,15 @@
 		}
 	]
 	
-## RGB-led (basic)
+### RGB-LED (basic)
+
+#### Circuit
+
+![RGB-LED (basic) (circuit)](/img/RGBLED_circuit.png)
+
+#### Flow
+
+![RGB-LED (basic) (flow)](/img/RGBLED_basic_flow.png)
 
 	[
 		{
@@ -444,7 +468,15 @@
 		}
 	]
 	
-## RGB-led (advanced)
+### RGB-LED (advanced)
+
+#### Circuit
+
+![RGB-LED (basic) (circuit)](/img/RGBLED_circuit.png)
+
+#### Flow
+
+![RGB-LED (basic) (flow)](/img/RGBLED_advanced_flow.png)
 
 	[
 		{
