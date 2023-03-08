@@ -1,6 +1,17 @@
 # idl4-cc-node-red-rpi
 
-## Your first circuit
+## Node-RED (basics)
+
+### Your first circuit
+
+#### Circuit
+
+![First circuit (circuit)](/img/firstCircuit_circuit.png)
+
+#### Flow
+
+![First circuit (flow)](/img/firstCircuit_flow.png)
+
 
 	[
 		{
