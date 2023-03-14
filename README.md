@@ -1001,7 +1001,7 @@
 
 #### Circuit
 
-![RGB-LED (basic) (circuit)](/img/RGBLED_circuit.png)
+![RGB-LED (basic) (circuit)](/img/RGBLED_advanced_circuit.png)
 
 #### Flow
 
