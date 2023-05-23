@@ -6,11 +6,11 @@
 
 #### Circuit
 
-![First circuit (circuit)](/img/firstCircuit_circuit.png)
+![First circuit (circuit)](img/firstCircuit_circuit.png)
 
 #### Flow
 
-![First circuit (flow)](/img/firstCircuit_flow.png)
+![First circuit (flow)](img/firstCircuit_flow.png)
 
 
 	[
@@ -240,11 +240,11 @@
 
 #### Circuit
 
-![RGB-LED (basic) (circuit)](/img/RGBLED_circuit.png)
+![RGB-LED (basic) (circuit)](img/RGBLED_circuit.png)
 
 #### Flow
 
-![RGB-LED (basic) (flow)](/img/RGBLED_basic_flow.png)
+![RGB-LED (basic) (flow)](img/RGBLED_basic_flow.png)
 
 	[
 		{
@@ -472,11 +472,11 @@
 
 #### Circuit
 
-![RGB-LED (basic) (circuit)](/img/RGBLED_circuit.png)
+![RGB-LED (basic) (circuit)](img/RGBLED_circuit.png)
 
 #### Flow
 
-![RGB-LED (basic) (flow)](/img/RGBLED_advanced_flow.png)
+![RGB-LED (basic) (flow)](img/RGBLED_advanced_flow.png)
 
 	[
 		{
@@ -794,7 +794,7 @@
 
 #### Circuit
 
-![RGB-LED (basic) (circuit)](/img/RGBLED_circuit.png)
+![RGB-LED (basic) (circuit)](img/RGBLED_circuit.png)
 
 #### Flow
 
@@ -1001,7 +1001,7 @@
 
 #### Circuit
 
-![RGB-LED (basic) (circuit)](/img/RGBLED_advanced_circuit.png)
+![RGB-LED (basic) (circuit)](img/RGBLED_advanced_circuit.png)
 
 #### Flow
 
