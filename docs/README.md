@@ -1317,3 +1317,340 @@
             "wholemsg": "false"
         }
     ]
+
+### 4 buttons controlling the background of a website (using websockets)
+
+#### Flow
+
+![RGB-LED (basic) (circuit)](img/RGBLED_advanced_circuit.png)
+
+[
+    {
+        "id": "1666244ebb5af16d",
+        "type": "http in",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "url": "/buttons",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "9a350e9e0782b25a"
+            ]
+        ]
+    },
+    {
+        "id": "9a350e9e0782b25a",
+        "type": "template",
+        "z": "60a2b5af4e923f64",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "plain",
+        "template": "var ws;\nvar wsUri = \"ws:\";\nvar loc = window.location;\nconsole.log(loc);\nif (loc.protocol === \"https:\") { wsUri = \"wss:\"; }\n// This needs to point to the web socket in the Node-RED flow\n// ... in this case it's /simple\nwsUri += \"//\" + loc.host + loc.pathname;\n\nfunction wsConnect() {\n    console.log(\"connect\", wsUri);\n    ws = new WebSocket(wsUri);\n\n    ws.onmessage = function (msg) {\n        console.log(msg);\n        var color = msg.data;\n        // update all the elements\n        document.body.style.backgroundColor = color;\n    }\n\n    ws.onopen = function () {\n        // update the status with the connection status\n        console.log(\"Connected\");\n    }\n\n    ws.onclose = function () {\n        // update the status div with the connection status\n        document.getElementById('status').innerHTML = \"not connected\";\n        // in case of lost connection tries to reconnect every 3 secs\n        setTimeout(wsConnect, 3000);\n    }\n\n    ws.disconnect = function () {\n        console.log(\"Disconnected\");\n    }\n}\n\n",
+        "output": "str",
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "a31db42e804ee1bf"
+            ]
+        ]
+    },
+    {
+        "id": "a31db42e804ee1bf",
+        "type": "template",
+        "z": "60a2b5af4e923f64",
+        "name": "CSS",
+        "field": "payload.style",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "body {background-color: #ffffff;}",
+        "output": "str",
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "3d65b817be0f0671"
+            ]
+        ]
+    },
+    {
+        "id": "3d65b817be0f0671",
+        "type": "template",
+        "z": "60a2b5af4e923f64",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE HTML>\n<html>\n  <head>\n    <title>Buttons</title>\n    <style>{{{payload.style}}}</style>\n    <script type=\"text/javascript\">{{{payload.script}}}</script>\n  </head>\n  <body onload=\"wsConnect();\" onunload=\"ws.disconnect();\">\n  </body>\n</html>",
+        "output": "str",
+        "x": 610,
+        "y": 80,
+        "wires": [
+            [
+                "9c5930de3d178780"
+            ]
+        ]
+    },
+    {
+        "id": "9c5930de3d178780",
+        "type": "http response",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 790,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8bc3366d1610609c",
+        "type": "websocket out",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "server": "2cce1aceba3f7db2",
+        "client": "",
+        "x": 750,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9ee8031a4cd80a0e",
+        "type": "rpi-gpio in",
+        "z": "60a2b5af4e923f64",
+        "name": "blue",
+        "pin": "13",
+        "intype": "up",
+        "debounce": "25",
+        "read": true,
+        "bcm": true,
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "d0cdbf8842b53b22"
+            ]
+        ]
+    },
+    {
+        "id": "d0cdbf8842b53b22",
+        "type": "change",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "blue",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "901ea6f0d9b3b5a5",
+                "5c40ecfebf38970e"
+            ]
+        ]
+    },
+    {
+        "id": "5c40ecfebf38970e",
+        "type": "debug",
+        "z": "60a2b5af4e923f64",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3ba136c40e9d4186",
+        "type": "rpi-gpio in",
+        "z": "60a2b5af4e923f64",
+        "name": "green",
+        "pin": "20",
+        "intype": "up",
+        "debounce": "25",
+        "read": true,
+        "bcm": true,
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "4f683e2fa16a6dae"
+            ]
+        ]
+    },
+    {
+        "id": "4f683e2fa16a6dae",
+        "type": "change",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "green",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "901ea6f0d9b3b5a5"
+            ]
+        ]
+    },
+    {
+        "id": "736e22bdee145fd5",
+        "type": "change",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "red",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 320,
+        "wires": [
+            [
+                "901ea6f0d9b3b5a5"
+            ]
+        ]
+    },
+    {
+        "id": "7d87d6bc66761283",
+        "type": "rpi-gpio in",
+        "z": "60a2b5af4e923f64",
+        "name": "red",
+        "pin": "12",
+        "intype": "up",
+        "debounce": "25",
+        "read": true,
+        "bcm": true,
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "736e22bdee145fd5"
+            ]
+        ]
+    },
+    {
+        "id": "816f381aadb2414f",
+        "type": "change",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "white",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 260,
+        "wires": [
+            [
+                "901ea6f0d9b3b5a5"
+            ]
+        ]
+    },
+    {
+        "id": "af35c3e74ce55aa6",
+        "type": "rpi-gpio in",
+        "z": "60a2b5af4e923f64",
+        "name": "white",
+        "pin": "16",
+        "intype": "up",
+        "debounce": "25",
+        "read": true,
+        "bcm": true,
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "816f381aadb2414f"
+            ]
+        ]
+    },
+    {
+        "id": "901ea6f0d9b3b5a5",
+        "type": "rbe",
+        "z": "60a2b5af4e923f64",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 550,
+        "y": 240,
+        "wires": [
+            [
+                "8bc3366d1610609c",
+                "5c40ecfebf38970e"
+            ]
+        ]
+    },
+    {
+        "id": "2cce1aceba3f7db2",
+        "type": "websocket-listener",
+        "path": "/buttons",
+        "wholemsg": "false"
+    }
+]
